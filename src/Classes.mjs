@@ -1,3 +1,4 @@
+export { Character, Warrior, Wizard };
 
 class Character {
     constructor(args) {

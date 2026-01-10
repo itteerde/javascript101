@@ -1,6 +1,7 @@
 import * as readline from 'node:readline/promises';
 import { stdin as input, stdout as output } from 'node:process';
 import { getRandomIntInclusive, roll } from './Dice.mjs';
+import { Warrior, Wizard } from './Classes.mjs';
 
 const rl = readline.createInterface({ input, output });
 const root = {};
