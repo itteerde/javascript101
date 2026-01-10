@@ -13,6 +13,11 @@ class Character {
     constructor(args) {
         this.name = args.name ? args.name : 'unknown';
         this.sex = args.sex ? args.sex : 'unknown';
+        this.lastUpdate = new Date();
+    }
+
+    touch() {
+        this.lastUpdate = new Date();
     }
 }
 
@@ -21,7 +26,6 @@ class Wizard extends Character {
         super(args);
 
         this.spellcastingTrait = 'Knowledge';
-        this.lastUpdate = new Date();
     }
 
     toString() {
