@@ -1,3 +1,5 @@
+import { roll } from './Dice.mjs';
+
 export { Character, Warrior, Wizard };
 
 /**
@@ -41,6 +43,14 @@ class Warrior extends Character {
     toString() {
         return `Mighty Warrior ${this.name} (${this.sex})`;
     }
+
+    roll_attack() {
+        return roll(2, 12);
+    }
+
+    roll_damage() {
+        return roll(2, 10) + 3;
+    }
 }
 
 
@@ -49,4 +59,6 @@ party.push(new Wizard({ name: 'Gial Engstrand', sex: 'male' }));
 party.push(new Warrior({ name: 'Talokai', sex: 'female' }));
 
 
-party.forEach(c => { console.log(c.toString()) });
+party.forEach(c => { console.log({ object: c, message: c.toString() }) });
+
+console.log(`${party[1].name} attacks (${party[1].roll_attack()}, damage: ${party[1].roll_damage()})`);
