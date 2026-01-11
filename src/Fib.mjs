@@ -1,6 +1,6 @@
 
 /**
- * Same strategy as for faculty, but fibonacci hat a much worse growth, so direct (recursive) implementation of the math is no longer reasonable.
+ * Same strategy as for faculty, but fibonacci has a much worse growth, so direct (recursive) implementation of the math is no longer reasonable.
  * 
  * @param {*} n 
  * @returns 
