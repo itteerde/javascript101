@@ -23,9 +23,9 @@ function fib(n) {
         return 1;
     }
     while (--n) {
-        c = a + b;
-        a = b;
-        b = c;
+        c = a + b; // c is f(n)
+        a = b; // f(n-2) becomes f(n-1) for next iteration
+        b = c;  // f(n-1) becomes f(n) for next iteration
     }
     return c;
 }
