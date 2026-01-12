@@ -22,8 +22,11 @@ function fib(n) {
         if (n === 0) return 0;
         return 1;
     }
-    while (--n)
-        c = a + b, a = b, b = c;
+    while (--n) {
+        c = a + b;
+        a = b;
+        b = c;
+    }
     return c;
 }
 
