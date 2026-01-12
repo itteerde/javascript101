@@ -38,3 +38,16 @@ for (let h = 1; h <= 12; h++) {
 }
 
 console.log(output);
+
+/*
+// https://foundryvtt.com/api/
+// https://foundryvtt.com/api/classes/foundry.documents.ChatMessage.html
+// https://foundryvtt.com/api/classes/foundry.documents.ChatMessage.html#create
+ChatMessage.create({
+    content: `
+    <div>
+        <div style="background-color: black; color: #7CFC00; font-family: monospace;">Overwatch, Active Defender</div>
+        <div><img src="https://i.gifer.com/JT72.gif" style="display: block; margin-left: auto; margin-right: auto;"/></div>
+    </div>
+    ` })
+    */
