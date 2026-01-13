@@ -13,6 +13,15 @@ function replacer(key, value) {
     }
 }
 
+function reviver(key, value) {
+    if (typeof value === 'object' && value !== null) {
+        if (value.dataType === 'Map') {
+            return new Map(value.value);
+        }
+    }
+    return value;
+}
+
 class CheckResults {
 
     static solution_hashes = new Map([
