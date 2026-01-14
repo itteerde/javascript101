@@ -16,6 +16,6 @@ function pSuccessDuality(eDV) {
  * Checking if the claimed solution is correct.
  */
 console.log({
-    result: pSuccessDuality(18),
+    solution: pSuccessDuality(18),
     isCorrect: CheckResults.check(4, pSuccessDuality(18))
 });
