@@ -1,6 +1,37 @@
 import { Dice } from "./Dice.mjs";
 
 
+/**
+ * 
+ * @param {*} hope 
+ * @param {*} fear 
+ * @param {*} eDV DV-modifiers including Advantage rolls.
+ * @returns 
+ */
+function classify(hope, fear, eDV) {
+    if (hope === fear) {
+        return 1;
+    }
+
+    if (hope + fear >= DV) {
+        return 1;
+    }
+
+    return 0;
+}
+
+function p_Duality(eDV, advantage = 0, disadvantage = 0) {
+    let successes = 0;
+    let modDice = advantage - disadvantage;
+    let numberOfEvents = 12 * 12 * modDice != 0 ? (6 * Math.abs(modDice)) : 1;
+
+    for (let h = 1; h <= 12; h++) {
+        for (let f = 1; f <= 12; f++) {
+
+        }
+    }
+}
+
 // sometimes it is the easiest way just to simulate a large number of times and trust the stochastics of large numbers to get you close enough.
 
 const sample_size = 1000000;
