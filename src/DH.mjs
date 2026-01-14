@@ -39,6 +39,24 @@ for (let h = 1; h <= 12; h++) {
 
 console.log(output);
 
+
+// so what does (one) Advantage do?
+let probabilities = new Map();
+for (let n = 3; n <= 30; n++) {
+    probabilities.set(n, 0);
+}
+
+for (let h = 1; h <= 12; h++) {
+    for (let f = 1; f <= 12; f++) {
+        for (let a = 1; a <= 6; a++) {
+            probabilities.set(h + f + a, probabilities.get(h + f + a) + 1 / (12 * 12 * 6));
+        }
+    }
+}
+
+console.log(probabilities);
+
+
 /*
 // https://foundryvtt.com/api/
 // https://foundryvtt.com/api/classes/foundry.documents.ChatMessage.html
