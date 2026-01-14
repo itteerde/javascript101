@@ -10,14 +10,12 @@ import { CheckResults } from "./tools/CheckResults.mjs";
 function pSuccessDuality(eDV) {
 }
 
-let pEDV18 = pSuccessDuality(18);
-
 // end of the solution
 
 /**
  * Checking if the claimed solution is correct.
  */
 console.log({
-    result: pEDV18,
-    isCorrect: CheckResults.check(4, pEDV18)
+    result: pSuccessDuality(18),
+    isCorrect: CheckResults.check(4, pSuccessDuality(18))
 });
