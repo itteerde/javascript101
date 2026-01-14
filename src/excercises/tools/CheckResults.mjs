@@ -27,7 +27,8 @@ class CheckResults {
     static solution_hashes = new Map([
         [1, '072ed3b22611a6c071e4d4435eda63d2c8f7f53d2f150060e05a85a77ff896c5'],
         [2, '8237bc8e789bb8dda033e23383e5ef19836a8883c1b9c668bc9a97593bc45b2c'],
-        [3, '8aa7cb7ac2bded1851fad4f366b8abd508dc5a76532c47bc3b94bfc57d82f880']
+        [3, '8aa7cb7ac2bded1851fad4f366b8abd508dc5a76532c47bc3b94bfc57d82f880'],
+        [4, 'a30a043314fa89294fa2c1c989a01fbb5329e5c085a5c5a8d27317656de24ae0']
     ]);
 
 
@@ -38,6 +39,11 @@ class CheckResults {
      * @param {*} claimedResult 
      */
     static check(excerciseNo, claimedResult) {
+
+        if (!claimedResult || !excerciseNo) {
+            return { excerciseNo: excerciseNo, correct: false, hash: undefined, message: 'no adequate parameters provided' };
+        }
+
         let solutionString;
         if ((typeof claimedResult) === 'string') {
             solutionString = claimedResult;
