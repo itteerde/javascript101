@@ -15,6 +15,6 @@ let solution = 0;
  * Checking if the claimed solution is correct.
  */
 console.log({
-    result: solution,
+    solution: solution,
     isCorrect: CheckResults.check(2, solution)
 });
