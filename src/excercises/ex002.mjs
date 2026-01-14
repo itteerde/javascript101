@@ -7,7 +7,7 @@ import { CheckResults } from "./tools/CheckResults.mjs";
 
 // start of the solution
 
-let result = 0;
+let solution = 0;
 
 // end of the solution
 
@@ -15,6 +15,6 @@ let result = 0;
  * Checking if the claimed solution is correct.
  */
 console.log({
-    result: result,
-    isCorrect: CheckResults.check(2, result)
+    result: solution,
+    isCorrect: CheckResults.check(2, solution)
 });
