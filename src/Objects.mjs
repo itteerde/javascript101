@@ -12,7 +12,7 @@
 /**
  * {} is an empty Object
  */
-const gial = {};
+let gial = {};
 
 /**
  * If .[propertyName] is undefined just assigning any value to it defines/ creates that property for the Object. If it was defined it would be overwritten as usual by doing an assignement.
@@ -51,3 +51,13 @@ let clone = Object.assign({}, gial);
 
 console.log(clone);
 console.log(clone.warCry());
+
+import import_gial from '../data/gial.json' with { type: 'json'};
+
+gial = import_gial;
+
+
+/**
+ * Set a Breakpoint on this line and explore the debugger.
+ */
+console.log(gial.items.filter(i => i.name.includes('Recipe')));
