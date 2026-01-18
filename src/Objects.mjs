@@ -10,7 +10,7 @@
  */
 
 /**
- * {} is an empty Object
+ * {} is a literal for an empty Object
  */
 let gial = {};
 
