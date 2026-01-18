@@ -1,9 +1,9 @@
-import { roll } from "./Dice.mjs";
+import { Dice } from "./Dice.mjs";
 
 let a1 = [];
 
 for (let i = 0; i < 1000000; i++) {
-    a1.push(roll(2, 12));
+    a1.push(Dice.roll(2, 12));
 }
 
 console.log("total: " + a1.reduce((acc, cur) => {
