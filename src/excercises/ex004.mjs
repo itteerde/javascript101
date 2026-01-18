@@ -8,10 +8,36 @@ import { CheckResults } from "./tools/CheckResults.mjs";
 // start of the solution
 
 function pSuccessDuality(eDV) {
+
+    let successes = 0;
+
+    for (let hope = 1; hope <= 12; hope++) {
+
+        for (let fear = 1; fear <= 12; fear++) {
+
+            if (hope + fear >= eDV || hope === fear) {
+
+                successes = successes + 1;
+
+            }
+
+        }
+
+    }
+
+    return (successes / (12 * 12));
+
 }
 
 // end of the solution
 
+for (let eDV = 2; eDV <= 24; eDV++) {
+
+    console.log({ eDV: eDV, p: pSuccessDuality(eDV) })
+
+}
+
+console.log(pSuccessDuality(13))
 /**
  * Checking if the claimed solution is correct.
  */

@@ -7,7 +7,7 @@ import { CheckResults } from "./tools/CheckResults.mjs";
 
 // start of the solution
 
-let solution = 0;
+let solution = (1 / 12) * (1 / 12) * 12;
 
 // end of the solution
 
