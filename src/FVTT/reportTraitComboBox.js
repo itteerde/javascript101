@@ -41,10 +41,17 @@ new foundry.applications.api.DialogV2({
 
             // build the HTML for the ChatMessage content
             // start the table
-            let chatMessageContent = `<div style="color: white;"><div style="font-size: large; font-weight: bold;">${keys.get(result)}</div><table style="width: 100%;">`;
+            let chatMessageContent = `
+                <div style="color: white; font-size: large; font-weight: bold;">${keys.get(result)}</div>
+                <table style="width: 100%;">
+                `;
             // fill in the table rows <tr>
             actors.forEach(a => {
-                chatMessageContent += `<tr style="line-height: 10px;"><td>${a.name}</td><td style="text-align: right; text-align: center;">${a.getRollData().traits[result].value}</td></tr>`;
+                chatMessageContent += `
+                    <tr style="line-height: 10px;">
+                        <td>${a.name}</td><td style="text-align: right; text-align: center;">${a.getRollData().traits[result].value}</td>
+                    </tr>
+                    `;
             });
             // end the table
             chatMessageContent += `</table></div>`;
