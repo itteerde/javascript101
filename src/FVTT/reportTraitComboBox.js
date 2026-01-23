@@ -38,6 +38,7 @@ new foundry.applications.api.DialogV2({
 
             // https://foundryvtt.com/api/classes/foundry.documents.Actor.html
             //let actors = game.folders.getName("The Party").contents.filter(a => a.type === "character");
+            // might not work with spectators. In that cases cross-referencing with the folder would be required
             let actors = game.users.filter(u => u.active && !u.isGM).map(u => u.character).sort((a, b) => a.name.localeCompare(b.name));
 
             // build the HTML for the ChatMessage content
