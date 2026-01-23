@@ -19,47 +19,52 @@ for (const [key, label] of keys.entries()) {
 }
 // end the form
 dialogContent += `</select></div>`;
+dialogContent += `<div style="display: flex; justify-content: center;align-items: center;"><input type="checkbox" id="toChat" name="toChat" value="true"><label for="toChat">Report to Chat</label></div><div style="font-size: x-small">If not checked a local prompt will be displayed.</div>`;
 
 // https://foundryvtt.com/api/classes/foundry.applications.api.DialogV2.html
-new foundry.applications.api.DialogV2({
+const response = await foundry.applications.api.DialogV2.wait({
     window: { title: "Traits" },
     content: dialogContent,
     buttons: [{
         action: "choice",
         label: "Report",
         default: true,
-        callback: (event, button, dialog) => button.form.elements.choice.value // only returns one string, the choice made (option selected's value)
-    }],
-    submit: result => {
-        if (!keys.has(result)) {
-            console.log("no valid selection");
-        } else {
-            console.log(`User picked option: ${keys.get(result)}`);
+        callback: (event, button, dialog) => new foundry.applications.ux.FormDataExtended(button.form).object
+    }]
+});
+// use for debugging:
+// console.log(response);
 
-            // https://foundryvtt.com/api/classes/foundry.documents.Actor.html
-            //let actors = game.folders.getName("The Party").contents.filter(a => a.type === "character");
-            // might not work with spectators. In that cases cross-referencing with the folder would be required
-            let actors = game.users.filter(u => u.active && !u.isGM).map(u => u.character).sort((a, b) => a.name.localeCompare(b.name));
+// https://foundryvtt.com/api/classes/foundry.documents.Actor.html
+//let actors = game.folders.getName("The Party").contents.filter(a => a.type === "character");
+// might not work with spectators. In that cases cross-referencing with the folder would be required
+let actors = game.users.filter(u => u.active && !u.isGM).map(u => u.character).sort((a, b) => a.name.localeCompare(b.name));
 
-            // build the HTML for the ChatMessage content
-            // start the table
-            let chatMessageContent = `
-                <div style="color: white; font-size: large; font-weight: bold;">${keys.get(result)}</div>
+// build the HTML for the ChatMessage content
+// start the table
+let chatMessageContent = `
+                <div style="color: white; font-size: large; font-weight: bold;">${keys.get(response.choice)}</div>
                 <table style="width: 100%;">
                 `;
-            // fill in the table rows <tr>
-            actors.forEach(a => {
-                chatMessageContent += `
+// fill in the table rows <tr>
+actors.forEach(a => {
+    chatMessageContent += `
                     <tr style="line-height: 10px;">
-                        <td>${a.name}</td><td style="text-align: right; text-align: center;">${a.getRollData().traits[result].value}</td>
+                        <td>${a.name}</td><td style="text-align: right; text-align: center;">${a.getRollData().traits[response.choice].value}</td>
                     </tr>
                     `;
-            });
-            // end the table
-            chatMessageContent += `</table></div>`;
+});
+// end the table
+chatMessageContent += `</table></div>`;
 
-            // https://foundryvtt.com/api/classes/foundry.documents.ChatMessage.html
-            ChatMessage.create({ content: chatMessageContent });
-        }
-    }
-}).render({ force: true });
+if (response.toChat === 'true') {
+    // https://foundryvtt.com/api/classes/foundry.documents.ChatMessage.html
+    ChatMessage.create({ content: chatMessageContent });
+} else {
+    await foundry.applications.api.DialogV2.prompt({
+        content: chatMessageContent,
+        rejectClose: false,
+        modal: true,
+        ok: {}
+    });
+}
