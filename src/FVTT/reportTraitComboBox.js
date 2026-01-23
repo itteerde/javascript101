@@ -37,7 +37,8 @@ new foundry.applications.api.DialogV2({
             console.log(`User picked option: ${keys.get(result)}`);
 
             // https://foundryvtt.com/api/classes/foundry.documents.Actor.html
-            let actors = game.folders.getName("The Party").contents.filter(a => a.type === "character");
+            //let actors = game.folders.getName("The Party").contents.filter(a => a.type === "character");
+            let actors = game.users.filter(u => u.active && !u.isGM).map(u => u.character).sort((a, b) => a.name.localeCompare(b.name));
 
             // build the HTML for the ChatMessage content
             // start the table
