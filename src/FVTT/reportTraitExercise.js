@@ -1,13 +1,16 @@
-game.folders.getName("The Party").contents
+/* game.folders.getName("The Party").contents
 game.folders.getName("The Party").contents.forEach(a => console.log(a.name))
 ChatMessage.create({ content: "string" })
+*/
 
-let chatMessageContent = '<table>';
-game.folders.getName("The Party").contents.forEach(a => chatMessageContent += `<tr><td>${a.name}</td></tr>`);
+let chatMessageContent = `<table><tr><th>Name</th><th>Agility</th></tr>`;
+game.folders.getName("The Party").contents.filter((character) => character.type === "character").forEach(a => chatMessageContent += `<tr><td>${a.name}</td><td>${a.getRollData().traits.agility.value}</td></tr>`);
 chatMessageContent += '</table>';
 ChatMessage.create({ content: chatMessageContent });
 
-
+/*
+const result = words.filter((word) => word.length > 6);
+*/
 
 /*        <table>
             <tr>
