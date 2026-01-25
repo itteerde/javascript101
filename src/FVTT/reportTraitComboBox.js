@@ -29,7 +29,7 @@ const response = await foundry.applications.api.DialogV2.wait({
         action: "choice",
         label: "Report",
         default: true,
-        callback: (event, button, dialog) => new foundry.applications.ux.FormDataExtended(button.form).object
+        callback: (event, button, dialog) => new foundry.applications.ux.FormDataExtended(button.form).object // makes available the named (name) html elements
     }]
 });
 // use for debugging:
