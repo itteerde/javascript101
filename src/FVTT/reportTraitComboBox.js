@@ -37,9 +37,7 @@ const response = await foundry.applications.api.DialogV2.wait({
 
 // https://foundryvtt.com/api/classes/foundry.documents.Actor.html
 //let actors = game.folders.getName("The Party").contents.filter(a => a.type === "character");
-// might not work with spectators. In that cases cross-referencing with the folder would be required
-// will probably crash for users not having a character. Once it happens add a test for that fixing it
-let actors = game.users.filter(u => u.active && !u.isGM).map(u => u.character).sort((a, b) => a.name.localeCompare(b.name));
+let actors = game.users.filter(u => u.active && !u.isGM && u.character).map(u => u.character).sort((a, b) => a.name.localeCompare(b.name));
 
 // build the HTML for the ChatMessage content
 // start the table
