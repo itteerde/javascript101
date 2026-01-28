@@ -40,6 +40,7 @@ const response = await foundry.applications.api.DialogV2.wait({ // we should loo
         callback: (event, button, dialog) => new foundry.applications.ux.FormDataExtended(button.form).object // makes available the named (name) html elements
         // https://foundryvtt.com/api/classes/foundry.applications.ux.FormDataExtended.html
         // https://developer.mozilla.org/en-US/docs/Web/API/FormData
+        // https://developer.mozilla.org/en-US/docs/Web/API/XMLHttpRequest_API/Using_FormData_Objects
     }]
 });
 // use for debugging:
