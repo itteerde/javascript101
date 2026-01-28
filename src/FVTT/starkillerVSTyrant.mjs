@@ -1,3 +1,7 @@
+/**
+ * Note that this is really quite naive. Knowing the expectation value per dice everything but the advantage could be done way more direct. And with that the Advantage could be handled by going over the cases, and compute the real expectation values.
+ */
+
 import { Dice } from '../Dice.mjs'
 
 let samplesize = 1000000;
