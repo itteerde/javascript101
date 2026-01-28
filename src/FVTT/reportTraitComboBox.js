@@ -38,7 +38,7 @@ const response = await foundry.applications.api.DialogV2.wait({
 // console.log(response);
 
 // https://foundryvtt.com/api/classes/foundry.documents.Actor.html
-let actors = undefined;
+let actors = [];
 if (actors = game.users.filter(u => u.active && !u.isGM && u.character).length < 3) { // game not configured with characters for users (and for GM prep)
     actors = game.folders.getName(PARTYFOLDERNAME).contents.filter(a => a.type === "character").sort((a, b) => a.name.localeCompare(b.name));
 } else { // session time for well configured games
