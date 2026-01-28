@@ -30,7 +30,7 @@ let dialogContent = `
 </select>*/
 
 // https://foundryvtt.com/api/classes/foundry.applications.api.DialogV2.html
-const response = await foundry.applications.api.DialogV2.wait({
+const response = await foundry.applications.api.DialogV2.wait({ // we should look at the API Docs for that method
     window: { title: "Traits" },
     content: dialogContent,
     buttons: [{
@@ -38,6 +38,8 @@ const response = await foundry.applications.api.DialogV2.wait({
         label: "Report",
         default: true,
         callback: (event, button, dialog) => new foundry.applications.ux.FormDataExtended(button.form).object // makes available the named (name) html elements
+        // https://foundryvtt.com/api/classes/foundry.applications.ux.FormDataExtended.html
+        // https://developer.mozilla.org/en-US/docs/Web/API/FormData
     }]
 });
 // use for debugging:
