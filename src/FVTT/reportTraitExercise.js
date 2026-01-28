@@ -3,10 +3,10 @@ game.folders.getName("The Party").contents.forEach(a => console.log(a.name))
 ChatMessage.create({ content: "string" })
 */
 
-let chatMessageContent = `<table><tr><th>Name</th><th>Agility</th></tr>`;
+/*let chatMessageContent = `<table><tr><th>Name</th><th>Agility</th></tr>`;
 game.folders.getName("The Party").contents.filter((character) => character.type === "character").forEach(a => chatMessageContent += `<tr><td>${a.name}</td><td>${a.getRollData().traits.agility.value}</td></tr>`);
 chatMessageContent += '</table>';
-ChatMessage.create({ content: chatMessageContent });
+ChatMessage.create({ content: chatMessageContent });*/
 
 let dialogContent = `
     <label for="traits">Choose a trait:</label>
@@ -46,6 +46,24 @@ const response = await foundry.applications.api.DialogV2.wait({ // we should loo
 // use for debugging:
 console.log(response);
 
+let chatMessageContent = `
+    <table>
+        <tr>
+            <th style="text-align: start;">Name</th>
+            <th>${response.traits.substring(0, 1).toLocaleUpperCase()}${response.traits.substring(1)}</th>
+        </tr>
+`;
+game.folders.getName("The Party").contents.filter((character) => character.type === "character").forEach(a => chatMessageContent += `
+        <tr>
+            <td>${a.name}</td>
+            <td style="text-align: center;">${a.getRollData().traits[response.traits].value}</td>
+        </tr>
+`);
+chatMessageContent += `
+    </table>
+`;
+
+ChatMessage.create({ content: chatMessageContent });
 
 /*
 const result = words.filter((word) => word.length > 6);
