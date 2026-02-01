@@ -7,3 +7,7 @@ if (LibEp2e.isCritical(result)) {
 } else {
     console.log(`${result} is not critical.`);
 }
+
+// or more modern
+
+console.log(`I rolled ${result}, ${LibEp2e.isCritical(result) ? 'critical!' : 'not critical'}`);
