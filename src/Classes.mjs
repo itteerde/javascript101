@@ -1,4 +1,4 @@
-import { roll } from './Dice.mjs';
+import { Dice } from './Dice.mjs';
 
 export { Character, Warrior, Wizard };
 
@@ -45,11 +45,11 @@ class Warrior extends Character {
     }
 
     roll_attack() {
-        return roll(2, 12);
+        return Dice.roll(2, 12);
     }
 
     roll_damage() {
-        return roll(2, 10) + 3;
+        return Dice.roll(2, 10) + 3;
     }
 }
 
