@@ -20,8 +20,8 @@ function pFailureinN(tries, eDV) {
 
 let tries = 5;
 let eDV = 13;
-console.log(pSuccessDuality(eDV))
-console.log(pSuccessinN(tries, eDV))
-console.log(pFailureinN(tries, eDV))
+console.log({ m: `pSuccessDuality(${eDV})`, v: pSuccessDuality(eDV) });
+console.log({ m: `pSuccessinN(${tries},${eDV})`, v: pSuccessinN(tries, eDV) });
+console.log({ m: `pFailureinN(${tries},${eDV})`, v: pFailureinN(tries, eDV) });
 
 //
