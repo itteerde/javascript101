@@ -1,102 +1,66 @@
-import { Dice } from "./Dice.mjs";
+export { DH };
 
+class DH {
 
-/**
- * 
- * @param {*} hope 
- * @param {*} fear 
- * @param {*} eDV DV-modifiers including Advantage rolls.
- * @returns 
- */
-function classify(hope, fear, eDV) {
-    if (hope === fear) {
-        return 1;
-    }
-
-    if (hope + fear >= DV) {
-        return 1;
-    }
-
-    return 0;
-}
-
-function p_Duality(eDV, advantage = 0, disadvantage = 0) {
-    let successes = 0;
-    let modDice = advantage - disadvantage;
-    let numberOfEvents = 12 * 12 * modDice != 0 ? (6 * Math.abs(modDice)) : 1;
-
-    for (let h = 1; h <= 12; h++) {
-        for (let f = 1; f <= 12; f++) {
-
+    /**
+     * 
+     * @param {*} hope 
+     * @param {*} fear 
+     * @param {*} eDV DV-modifiers including Advantage rolls.
+     * @returns 
+     */
+    static classify(hope, fear, eDV) {
+        if (hope === fear) {
+            return 1;
         }
-    }
-}
 
-// sometimes it is the easiest way just to simulate a large number of times and trust the stochastics of large numbers to get you close enough.
-
-const sample_size = 1000000;
-const rolls = new Array(25).fill(0);
-
-for (let i = 0; i < sample_size; i++) {
-    const roll = Dice.roll(2, 12);
-    rolls[roll]++;
-}
-
-for (let i = 0; i < rolls.length; i++) {
-    rolls[i] /= sample_size;
-}
-
-let output = {};
-for (let i = 1; i < rolls.length; i++) {
-    output[i] = rolls[i];
-}
-
-console.log(output);
-
-
-
-// ... but often it is really simple to just run through all possible cases and do the bookkeeping. (note that it is also worth looking at stochastics/combinatorics and just write down the closed form formula if there is one)
-
-output = {};
-for (let h = 1; h <= 12; h++) {
-    for (let f = 1; f <= 12; f++) {
-        if (output[h + f] === undefined) {
-            output[h + f] = 1 / 144;
-        } else {
-            output[h + f] += 1 / 144;
+        if (hope + fear >= eDV) {
+            return 1;
         }
+
+        return 0;
+    }
+
+    static is_critical(h, f) {
+        return h === f;
+    }
+
+    /**
+     * The number of successful cases (to be devided by the total number of cases, which is 144).
+     * 
+     * @param {Number} eDV 
+     * @returns the number of successful cases (to be devided by the total number of cases, which is 144)
+     */
+    static c_Duality(eDV) {
+
+        if (eDV <= 3) return 144;
+        if (eDV >= 24) return 12;
+
+        if (eDV === 4) return 142;
+        if (eDV === 5) return 140;
+        if (eDV === 6) return 136;
+        if (eDV === 7) return 132;
+        if (eDV === 8) return 126;
+        if (eDV === 9) return 120;
+        if (eDV === 10) return 112;
+        if (eDV === 11) return 104;
+        if (eDV === 12) return 104;
+        if (eDV === 13) return 94;
+        if (eDV === 14) return 84;
+        if (eDV === 15) return 72;
+        if (eDV === 16) return 62;
+        if (eDV === 17) return 44;
+        if (eDV === 18) return 36;
+        if (eDV === 19) return 30;
+        if (eDV === 20) return 24;
+        if (eDV === 21) return 20;
+        if (eDV === 22) return 16;
+        if (eDV === 23) return 14;
+
+        throw new Error("no or not Number eDV parameter provided");
+    }
+
+    static p_Duality(eDV) {
+        return this.c_Duality(eDV) / 144;
     }
 }
-
-console.log(output);
-
-
-// so what does (one) Advantage do?
-let probabilities = new Map();
-for (let n = 3; n <= 30; n++) {
-    probabilities.set(n, 0);
-}
-
-for (let h = 1; h <= 12; h++) {
-    for (let f = 1; f <= 12; f++) {
-        for (let a = 1; a <= 6; a++) {
-            probabilities.set(h + f + a, probabilities.get(h + f + a) + 1 / (12 * 12 * 6));
-        }
-    }
-}
-
-console.log(probabilities);
-
-
-/*
-// https://foundryvtt.com/api/
-// https://foundryvtt.com/api/classes/foundry.documents.ChatMessage.html
-// https://foundryvtt.com/api/classes/foundry.documents.ChatMessage.html#create
-ChatMessage.create({
-    content: `
-    <div>
-        <div style="background-color: black; color: #7CFC00; font-family: monospace;">Overwatch, Active Defender</div>
-        <div><img src="https://i.gifer.com/JT72.gif" style="display: block; margin-left: auto; margin-right: auto;"/></div>
-    </div>
-    ` })
-    */
