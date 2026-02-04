@@ -27,7 +27,12 @@ function pFailureAll(tries, eDV) {
 }
 
 // prepare HTML for the dialog
-let dialogContent = ``;
+let dialogContent = `
+    <label for="tries"> Number of Tries :</label>
+    <input type="number" id="tries" name="tries" />
+    <label for="eDV"> Effective Difficutly Value :</label>
+    <input type="number" id="eDV" name="eDV" />
+`;
 
 const response = await foundry.applications.api.DialogV2.wait({
     window: { title: "Probabilities" },
@@ -42,10 +47,33 @@ const response = await foundry.applications.api.DialogV2.wait({
 console.log({ response: response });
 
 // prepare the HTML for the ChatMessage
-let chatMessageContent = ``;
+let chatMessageContent = `
+    <table>
+    <tr>
+        <th>Single Roll</th>
+        <td>${(pSuccessDuality(response.eDV) * 100).toFixed(2)}%</td>
+    </tr>
+    <tr>
+        <th>One Success in Tries</th>
+        <td>${(pSuccessinN(response.tries, response.eDV) * 100).toFixed(2)}%</td>
+    </tr>
+    <tr>
+        <th>Failure in Tries</th>
+        <td>${(pFailureinN(response.tries, response.eDV) * 100).toFixed(2)}%</td>
+    </tr>
+    <tr>
+        <th>All Success in Tries</th>
+        <td>${(pSuccessAll(response.tries, response.eDV) * 100).toFixed(2)}%</td>
+    </tr>
+    <tr>
+        <th>All Failure in Tries</th>
+        <td>${(pFailureAll(response.tries, response.eDV) * 100).toFixed(2)}%</td>
+    </tr>
+    </table>
+`;
 
-let tries = 5;
-let eDV = 13;
+let tries = response.tries;
+let eDV = response.eDV;
 console.log({ m: `pSuccessDuality(${eDV})`, v: pSuccessDuality(eDV) });
 console.log({ m: `pSuccessinN(${tries},${eDV})`, v: pSuccessinN(tries, eDV) });
 console.log({ m: `pFailureinN(${tries},${eDV})`, v: pFailureinN(tries, eDV) });
@@ -54,4 +82,30 @@ console.log({ m: `pFailureAll(${tries}, ${eDV})`, v: pFailureAll(tries, eDV) });
 
 //pSuccessDuality ** tries
 
-// ChatMessage.create({ content: chatMessageContent });
+ChatMessage.create({ content: chatMessageContent });
+
+/*<table>
+  <tr>
+    <th>Animals</th>
+  </tr>
+  <tr>
+    <th>Hippopotamus</th>
+  </tr>
+  <tr>
+    <th>Horse</th>
+    <td>Mare</td>
+  </tr>
+  <tr>
+    <td>Stallion</td>
+  </tr>
+  <tr>
+    <th>Crocodile</th>
+  </tr>
+  <tr>
+    <th>Chicken</th>
+    <td>Hen</td>
+  </tr>
+  <tr>
+    <td>Rooster</td>
+  </tr>
+</table>*/
