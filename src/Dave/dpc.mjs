@@ -41,7 +41,8 @@ const response = await foundry.applications.api.DialogV2.wait({
 });
 console.log({ response: response });
 
-
+// prepare the HTML for the ChatMessage
+let chatMessageContent = ``;
 
 let tries = 5;
 let eDV = 13;
@@ -52,3 +53,5 @@ console.log({ m: `pSuccessAll(${tries},${eDV})`, v: pSuccessAll(tries, eDV) });
 console.log({ m: `pFailureAll(${tries}, ${eDV})`, v: pFailureAll(tries, eDV) });
 
 //pSuccessDuality ** tries
+
+// ChatMessage.create({ content: chatMessageContent });
