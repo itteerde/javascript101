@@ -26,6 +26,23 @@ function pFailureAll(tries, eDV) {
     return (1 - pSuccessDuality(eDV)) ** tries;
 }
 
+// prepare HTML for the dialog
+let dialogContent = ``;
+
+const response = await foundry.applications.api.DialogV2.wait({
+    window: { title: "Probabilities" },
+    content: dialogContent,
+    buttons: [{
+        action: "calculate",
+        label: "Calculate!",
+        default: true,
+        callback: (event, button, dialog) => new foundry.applications.ux.FormDataExtended(button.form).object // makes available the named (name) html elements
+    }]
+});
+console.log({ response: response });
+
+
+
 let tries = 5;
 let eDV = 13;
 console.log({ m: `pSuccessDuality(${eDV})`, v: pSuccessDuality(eDV) });
