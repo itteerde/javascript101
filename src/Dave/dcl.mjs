@@ -38,7 +38,12 @@ function runCountdown() {
         if (hope + fear < eDV && hope < fear) { countdown = countdown + 1 }
         counter = counter + 1
     }
-    return counter;
+    return {
+        rolls: counter,
+        criticals: undefined,
+        hope: undefined,
+        fear: undefined
+    };
 }
 
 console.log(runCountdown())
