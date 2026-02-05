@@ -68,9 +68,7 @@ function runCountdown() {
     };
 }
 
-console.log(runCountdown(samplesize))
-
-function countdownAverage() {
+function countdownAverage(samplesize) {
 
     let data = {
         rolls: counter,
@@ -91,6 +89,8 @@ function countdownAverage() {
 
     return data;
 }
+
+console.log(countdownAverage(samplesize))
 
 
 
