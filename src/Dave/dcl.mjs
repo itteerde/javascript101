@@ -68,13 +68,11 @@ function runCountdown() {
     };
 }
 
-console.log(runCountdown())
+console.log(runCountdown(samplesize))
 
 function countdownAverage() {
-    for (let i = 0; i < 1000000; i++) {
-        runCountdown()
-    }
-    return {
+
+    let data = {
         rolls: counter,
         criticals: criticals,
         successWHope: successWHope,
@@ -82,6 +80,16 @@ function countdownAverage() {
         successWFear: successWFear,
         failureWFear: failureWFear
     };
+
+    for (let i = 0; i < samplesize; i++) {
+        let countdown = runCountdown();
+
+        data.rolls += countdown.rolls;
+    }
+
+    data.rolls /= samplesize;
+
+    return data;
 }
 
 
