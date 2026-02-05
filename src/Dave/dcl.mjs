@@ -41,8 +41,10 @@ function runCountdown() {
     return {
         rolls: counter,
         criticals: undefined,
-        hope: undefined,
-        fear: undefined
+        successWHope: undefined,
+        failureWHope: undefined,
+        successWFear: undefined,
+        failureWFear: undefined
     };
 }
 
