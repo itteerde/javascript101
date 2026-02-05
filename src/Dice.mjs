@@ -15,5 +15,24 @@ class Dice {
         }
         return res;
     }
+
+    static dN(n) {
+        return this.getRandomIntInclusive(1, n);
+    }
+
+    /**
+     * Rolls a number of dice and returns the total.
+     * 
+     * @param {Array} dice like [{nuberOfSides: 6, numberOfDice: 2},{nuberOfSides: 20, numberOfDice: 1}] in order to total 2d6+1d20.
+     * @returns the total for the roll of multiple dice.
+     */
+    static rollDiceTotal(dice = [{ numberOfSides: 6, numberOfDice: 0 }]) {
+        let total = 0;
+        dice.forEach(d => {
+            total += this.roll(d.numberOfDice, d.numberOfSides);
+        });
+
+        return total;
+    }
 }
 
