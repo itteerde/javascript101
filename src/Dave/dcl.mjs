@@ -15,13 +15,13 @@ function d12() {
 //Successes with fear will reudce coundown length by 1 (Done)
 //Failures with hope will have no effect on the coundown length (Done)
 //Failures with fear will increase the coundown length by 1 (Done)
-//One the coundown reaches 0, tracking the process will conclude, and results must be returned
-//The results should include: 
-//      1) how many tries it took to complete the process
-//      2) how many criticals were rolled during the process
-//      3) how many failures with fear were rolled during the process
-//      4) how many times a roll generated Hope during the process
-//      5) how many times a roll generated Fear during the process) 
+//One the coundown reaches 0, tracking the process will conclude, and results must be returned (Done)
+//The results should include: (Done)
+//      1) how many tries it took to complete the process (Done)
+//      2) how many criticals were rolled during the process (Done)
+//      3) how many failures with fear were rolled during the process (Done)
+//      4) how many times a roll generated Hope during the process (Done)
+//      5) how many times a roll generated Fear during the process (Done)
 //The progream will gather this data for a number of tries chosen by a user and then provide the average numbers given the number of tries chosen.
 
 let countdown = 12;
@@ -29,28 +29,62 @@ let eDV = 13;
 
 function runCountdown() {
     let counter = 0;
+    let criticals = 0;
+    let successWHope = 0;
+    let successWFear = 0;
+    let failureWHope = 0;
+    let failureWFear = 0;
     while (countdown > 0) {
         let hope = d12();
         let fear = d12();
-        if (hope === fear) { countdown = countdown - 3 }
-        if (hope + fear >= eDV && hope >= fear) { countdown = countdown - 2 }
-        if (hope + fear >= eDV && fear > hope) { countdown = countdown - 1 }
-        if (hope + fear < eDV && hope < fear) { countdown = countdown + 1 }
+        if (hope === fear) {
+            countdown = countdown - 3;
+            criticals = criticals + 1;
+        }
+        if (hope + fear >= eDV && hope > fear) {
+            countdown = countdown - 2;
+            successWHope = successWHope + 1
+        }
+        if (hope + fear >= eDV && fear > hope) {
+            countdown = countdown - 1;
+            successWFear = successWFear + 1;
+        }
+        if (hope + fear < eDV && hope > fear) {
+            failureWHope = failureWHope + 1;
+        }
+        if (hope + fear < eDV && hope < fear) {
+            countdown = countdown + 1;
+            failureWFear = failureWFear + 1;
+        }
         counter = counter + 1
     }
     return {
         rolls: counter,
-        criticals: undefined,
-        successWHope: undefined,
-        failureWHope: undefined,
-        successWFear: undefined,
-        failureWFear: undefined
+        criticals: criticals,
+        successWHope: successWHope,
+        failureWHope: failureWHope,
+        successWFear: successWFear,
+        failureWFear: failureWFear
     };
 }
 
 console.log(runCountdown())
 
-//for (let i = 0; i < 1000000; i++) TODO
+function countdownAverage() {
+    for (let i = 0; i < 1000000; i++) {
+        runCountdown()
+    }
+    return {
+        rolls: counter,
+        criticals: criticals,
+        successWHope: successWHope,
+        failureWHope: failureWHope,
+        successWFear: successWFear,
+        failureWFear: failureWFear
+    };
+}
+
+
 
 /* TODO
 
