@@ -24,10 +24,7 @@ function d12() {
 //      5) how many times a roll generated Fear during the process (Done)
 //The progream will gather this data for a number of tries chosen by a user and then provide the average numbers given the number of tries chosen.
 
-let countdown = 12;
-let eDV = 13;
-
-function runCountdown() {
+function runCountdown(countdown, eDV) {
     let counter = 0;
     let criticals = 0;
     let successWHope = 0;
@@ -68,7 +65,7 @@ function runCountdown() {
     };
 }
 
-function countdownAverage(samplesize) {
+function countdownAverage(countdown, eDV, samplesize) {
 
     let data = {
         rolls: 0,
@@ -80,9 +77,9 @@ function countdownAverage(samplesize) {
     };
 
     for (let i = 0; i < samplesize; i++) {
-        let countdown = runCountdown();
+        let result = runCountdown(countdown, eDV);
 
-        data.rolls += countdown.rolls;
+        data.rolls += result.rolls;
         //same as "data.rolls = data.rolls + countdown.rolls;""
     }
 
@@ -92,7 +89,7 @@ function countdownAverage(samplesize) {
     return data;
 }
 
-console.log(countdownAverage(1000000))
+console.log(countdownAverage(12, 13, 1000000))
 
 
 
