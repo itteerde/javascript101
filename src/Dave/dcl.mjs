@@ -8,22 +8,6 @@ function d12() {
     return getRandomIntInclusive(1, 12);
 }
 
-//User picks a Countdown Length and an eDV. (Done)
-//Program will roll 2d12 multiple times  (Done)
-//Criticals will reduce coundown length by 3 (Done)
-//Successes with hope will reduce coundown length by 2 (Done)
-//Successes with fear will reudce coundown length by 1 (Done)
-//Failures with hope will have no effect on the coundown length (Done)
-//Failures with fear will increase the coundown length by 1 (Done)
-//One the coundown reaches 0, tracking the process will conclude, and results must be returned (Done)
-//The results should include: (Done)
-//      1) how many tries it took to complete the process (Done)
-//      2) how many criticals were rolled during the process (Done)
-//      3) how many failures with fear were rolled during the process (Done)
-//      4) how many times a roll generated Hope during the process (Done)
-//      5) how many times a roll generated Fear during the process (Done)
-//The progream will gather this data for a number of tries chosen by a user and then provide the average numbers given the number of tries chosen.
-
 function runCountdown(countdown, eDV) {
     let counter = 0;
     let criticals = 0;
@@ -79,21 +63,24 @@ function countdownAverage(countdown, eDV, samplesize) {
     for (let i = 0; i < samplesize; i++) {
         let result = runCountdown(countdown, eDV);
 
-        data.rolls += result.rolls;
-        //same as "data.rolls = data.rolls + countdown.rolls;""
+        data.rolls += result.rolls; //same as "data.rolls = data.rolls + result.rolls;""
+        data.criticals += result.criticals
+        data.successWHope += result.successWHope
+        data.failureWHope += result.failureWHope
+        data.successWFear += result.successWFear
+        data.failureWFear += result.failureWFear
+
     }
 
-    data.rolls /= samplesize;
-    //same as "data.rolls = data.rolls / samplesize"
+    data.rolls /= samplesize; //same as "data.rolls = data.rolls / samplesize"
+    data.criticals /= samplesize
+    data.successWHope /= samplesize
+    data.failureWHope /= samplesize
+    data.successWFear /= samplesize
+    data.failureWFear /= samplesize
 
     return data;
 }
-
-console.log(countdownAverage(12, 13, 1000000))
-
-
-
-/* TODO
 
 // prepare HTML for the dialog
 let dialogContent = `
@@ -101,6 +88,8 @@ let dialogContent = `
     <input type="number" id="countdown" name="countdown" />
     <label for="eDV"> Effective Difficutly Value :</label>
     <input type="number" id="eDV" name="eDV" />
+    <label for="samplesize"> Sample Size :</label>
+    <input type="number" id="samplesize" name="samplesize" />
 `;
 
 const response = await foundry.applications.api.DialogV2.wait({
@@ -115,35 +104,34 @@ const response = await foundry.applications.api.DialogV2.wait({
 });
 console.log({ response: response });
 
+let data = countdownAverage(response.countdown, response.eDV, response.samplesize)
 // prepare the HTML for the ChatMessage
 let chatMessageContent = `
     <table>
-        <th>Expected Number of Rolls</th>
-        <td>${(XXX(response.countdown, response.eDV) * 100).toFixed(2)}%</td>
+        <th>Rolls</th>
+        <td>${data.rolls}</td>
     </tr>
     <tr>
-        <th>Expected Number of Criticals</th>
-        <td>${(XXX(response.countdown, response.eDV) * 100).toFixed(2)}%</td>
+        <th>Criticals</th>
+        <td>${data.criticals}</td>
     </tr>
     <tr>
-        <th>Expected Number of Failures with Fear</th>
-        <td>${(XXX(response.countdown, response.eDV) * 100).toFixed(2)}%</td>
+        <th>Successes with Hope</th>
+        <td>${data.successWHope}</td>
     </tr>
     <tr>
-        <th>Expected Number of Rolls with Hope</th>
-        <td>${(XXX(response.countdown, response.eDV) * 100).toFixed(2)}%</td>
+        <th>Failures with Hope</th>
+        <td>${data.failureWHope}</td>
     </tr>
         <tr>
-        <th>Expected Number of Rolls with Fear</th>
-        <td>${(XXX(response.countdown, response.eDV) * 100).toFixed(2)}%</td>
+        <th>Successes with Fear</th>
+        <td>${data.successWFear}</td>
+    </tr>
+    <tr>
+        <th>Failures with Fear</th>
+        <td>${data.failureWFear}</td>
     </tr>
     </table>
 `;
 
-let countdown = response.countdown;
-let eDV = response.eDV;
-
 ChatMessage.create({ content: chatMessageContent });
-`;
-
-TODO */
