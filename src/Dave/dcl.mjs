@@ -104,32 +104,37 @@ const response = await foundry.applications.api.DialogV2.wait({
 });
 console.log({ response: response });
 
+if (response.samplesize > 1000000) {
+    ui.notifications.error(`Sample size must not be greater than a million, was ${response.samplesize}`, { permanent: true });
+    return
+}
+
 let data = countdownAverage(response.countdown, response.eDV, response.samplesize)
 // prepare the HTML for the ChatMessage
 let chatMessageContent = `
     <table>
         <th>Rolls</th>
-        <td>${data.rolls}</td>
+        <td>${Math.round(data.rolls)}</td>
     </tr>
     <tr>
         <th>Criticals</th>
-        <td>${data.criticals}</td>
+        <td>${Math.round(data.criticals)}</td>
     </tr>
     <tr>
         <th>Successes with Hope</th>
-        <td>${data.successWHope}</td>
+        <td>${Math.round(data.successWHope)}</td>
     </tr>
     <tr>
         <th>Failures with Hope</th>
-        <td>${data.failureWHope}</td>
+        <td>${Math.round(data.failureWHope)}</td>
     </tr>
         <tr>
         <th>Successes with Fear</th>
-        <td>${data.successWFear}</td>
+        <td>${Math.round(data.successWFear)}</td>
     </tr>
     <tr>
         <th>Failures with Fear</th>
-        <td>${data.failureWFear}</td>
+        <td>${Math.round(data.failureWFear)}</td>
     </tr>
     </table>
 `;
