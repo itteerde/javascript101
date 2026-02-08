@@ -40,29 +40,33 @@ class Dice {
     }
 }
 
-function runCountdown() {
+function runCombatLength() {
     let attack = 3;
-    let damage = Dice.rollDiceTotal([{ numberOfSides: 10, numberOfDice: 2 }]) + 3;
     let monsterDifficulty = 15;
     let monsterHitPoints = 0;
     let monsterMajorThreshold = 12;
-    let monsterSeverThreshold = 20;
-    let counter = 0
+    let monsterSevereThreshold = 20;
+    let counter = 0;
 
-    while (monsterHitPoints =< 6) {
-        let hope = Dice.rollDiceTotal([{ numberOfSide: 12, numberOfDice: 1 }])
-        let fear = Dice.rollDiceTotal([{ numberOfSide: 12, numberOfDice: 1 }])
-        if (hope + fear >= monsterDifficulty) {
-            if damage < monsterMajorThreshold {
-                monsterHitPoints = monsterHitPoints + 1
+    while (monsterHitPoints <= 6) {
+        let hope = Dice.rollDiceTotal([{ numberOfSide: 12, numberOfDice: 1 }]);
+        let fear = Dice.rollDiceTotal([{ numberOfSide: 12, numberOfDice: 1 }]);
+        if (hope + fear + attack >= monsterDifficulty) {
+            let damage = Dice.rollDiceTotal([{ numberOfSides: 10, numberOfDice: 2 }]) + 3;
+            if (damage < monsterMajorThreshold) {
+                monsterHitPoints = monsterHitPoints + 1;
             }
-            if damage >= monsterMajorThreshold && damage < monsterSeverThreshold {
-                monsterHitPoints = monsterHitPoints + 2
+            if (damage >= monsterMajorThreshold && damage < monsterSevereThreshold) {
+                monsterHitPoints = monsterHitPoints + 2;
             }
-            if damage > monsterSeverThreshold {
-                monsterHitPoints = monsterHitPoints + 3
+            if (damage > monsterSevereThreshold) {
+                monsterHitPoints = monsterHitPoints + 3;
             }
-            counter = counter + 1
         }
+        counter = counter + 1;
     }
+    return {
+        counter: counter
+    };
 }
+console.log(runCombatLength());
