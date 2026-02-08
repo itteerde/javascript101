@@ -40,27 +40,23 @@ class Dice {
     }
 }
 
-function runCombatLength() {
-    let attack = 3;
-    let monsterDifficulty = 15;
-    let monsterHitPoints = 0;
-    let monsterMajorThreshold = 12;
-    let monsterSevereThreshold = 20;
+function runCombatLength(attack, monsterDifficulty, monsterHitPointsMax, monsterMajorThreshold, monsterSevereThreshold) {
+    let monsterHitPointsCurrent = 0;
     let counter = 0;
 
-    while (monsterHitPoints <= 6) {
-        let hope = Dice.rollDiceTotal([{ numberOfSide: 12, numberOfDice: 1 }]);
-        let fear = Dice.rollDiceTotal([{ numberOfSide: 12, numberOfDice: 1 }]);
+    while (monsterHitPointsCurrent <= monsterHitPointsMax) {
+        let hope = Dice.rollDiceTotal([{ numberOfSides: 12, numberOfDice: 1 }]);
+        let fear = Dice.rollDiceTotal([{ numberOfSides: 12, numberOfDice: 1 }]);
         if (hope + fear + attack >= monsterDifficulty) {
             let damage = Dice.rollDiceTotal([{ numberOfSides: 10, numberOfDice: 2 }]) + 3;
             if (damage < monsterMajorThreshold) {
-                monsterHitPoints = monsterHitPoints + 1;
+                monsterHitPointsCurrent = monsterHitPointsCurrent + 1;
             }
             if (damage >= monsterMajorThreshold && damage < monsterSevereThreshold) {
-                monsterHitPoints = monsterHitPoints + 2;
+                monsterHitPointsCurrent = monsterHitPointsCurrent + 2;
             }
             if (damage > monsterSevereThreshold) {
-                monsterHitPoints = monsterHitPoints + 3;
+                monsterHitPointsCurrent = monsterHitPointsCurrent + 3;
             }
         }
         counter = counter + 1;
@@ -69,4 +65,45 @@ function runCombatLength() {
         counter: counter
     };
 }
-console.log(runCombatLength());
+//console.log(runCombatLength(3, 15, 6, 13, 20));
+
+// prepare HTML for the dialog
+let dialogContent = `
+    <label for="attack"> Player's Attack Bonus :</label>
+    <input type="number" id="attack" name="attack" />
+    <label for="monsterDifficulty"> Monster's Difficulty :</label>
+    <input type="number" id="monsterDifficulty" name="monsterDifficulty" />
+    <label for="monsterHitPointsMax"> Monster's Hit Points :</label>
+    <input type="number" id="monsterHitPointsMax" name="monsterHitPointsMax" />
+    <label for="monsterMajorThreshold"> Monster's Major Threshold :</label>
+    <input type="number" id="monsterMajorThreshold" name="monsterMajorThreshold" />
+    <label for="monsterSevereThreshold"> Monster's Severe Threshold :</label>
+    <input type="number" id="monsterSevereThreshold" name="monsterSevereThreshold" />
+`;
+
+const response = await foundry.applications.api.DialogV2.wait({
+    window: { title: "Probabilities" },
+    content: dialogContent,
+    buttons: [{
+        action: "calculate",
+        label: "Calculate!",
+        default: true,
+        callback: (event, button, dialog) => new foundry.applications.ux.FormDataExtended(button.form).object // makes available the named (name) html elements
+    }]
+});
+console.log({ response: response });
+
+let data = runCombatLength(response.attack, response.monsterDifficulty, response.monsterHitPointsMax, response.monsterMajorThreshold, response.monsterSevereThreshold)
+console.log(data)
+
+// prepare the HTML for the ChatMessage
+let chatMessageContent = `
+    <table>
+    <tr>
+        <th style="text-align: start;">Rounds</th>
+        <td>${data.counter}</td>
+    </tr>
+    </table>
+`;
+
+ChatMessage.create({ content: chatMessageContent });

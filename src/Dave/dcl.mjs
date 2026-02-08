@@ -113,27 +113,28 @@ let data = countdownAverage(response.countdown, response.eDV, response.samplesiz
 // prepare the HTML for the ChatMessage
 let chatMessageContent = `
     <table>
-        <th>Rolls</th>
+    <tr>
+        <th style="text-align: start;">Rolls</th>
         <td>${Math.round(data.rolls)}</td>
     </tr>
     <tr>
-        <th>Criticals</th>
+        <th style="text-align: start;">Criticals</th>
         <td>${Math.round(data.criticals)}</td>
     </tr>
     <tr>
-        <th>Successes with Hope</th>
+        <th style="text-align: start;">Successes with Hope</th>
         <td>${Math.round(data.successWHope)}</td>
     </tr>
     <tr>
-        <th>Failures with Hope</th>
+        <th style="text-align: start;">Failures with Hope</th>
         <td>${Math.round(data.failureWHope)}</td>
     </tr>
         <tr>
-        <th>Successes with Fear</th>
+        <th style="text-align: start;">Successes with Fear</th>
         <td>${Math.round(data.successWFear)}</td>
     </tr>
     <tr>
-        <th>Failures with Fear</th>
+        <th style="text-align: start;">Failures with Fear</th>
         <td>${Math.round(data.failureWFear)}</td>
     </tr>
     </table>
