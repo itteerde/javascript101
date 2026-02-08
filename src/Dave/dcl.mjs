@@ -51,36 +51,48 @@ function runCountdown(countdown, eDV) {
 
 function countdownAverage(countdown, eDV, samplesize) {
 
+    let bins = 100;
+
     let data = {
-        rolls: 0,
-        criticals: 0,
-        successWHope: 0,
-        failureWHope: 0,
-        successWFear: 0,
-        failureWFear: 0
+        rolls: new Array(bins).fill(0),
+        criticals: new Array(bins).fill(0),
+        successWHope: new Array(bins).fill(0),
+        failureWHope: new Array(bins).fill(0),
+        successWFear: new Array(bins).fill(0),
+        failureWFear: new Array(bins).fill(0)
     };
 
     for (let i = 0; i < samplesize; i++) {
         let result = runCountdown(countdown, eDV);
 
-        data.rolls += result.rolls; //same as "data.rolls = data.rolls + result.rolls;""
-        data.criticals += result.criticals
-        data.successWHope += result.successWHope
-        data.failureWHope += result.failureWHope
-        data.successWFear += result.successWFear
-        data.failureWFear += result.failureWFear
+        result.rolls < bins ? data.rolls[result.rolls]++ : data.rolls[0]++;
+        result.criticals < bins ? data.criticals[result.criticals]++ : data.criticals[0]++;
+        result.successWHope < bins ? data.successWHope[result.successWHope]++ : data.successWHope[0]++;
+        result.failureWHope < bins ? data.failureWHope[result.failureWHope]++ : data.failureWHope[0]++;
+        result.successWFear < bins ? data.successWFear[result.successWFear]++ : data.successWFear[0]++;
+        result.failureWFear < bins ? data.failureWFear[result.failureWFear]++ : data.failureWFear[0]++;
 
     }
 
-    data.rolls /= samplesize; //same as "data.rolls = data.rolls / samplesize"
-    data.criticals /= samplesize
-    data.successWHope /= samplesize
-    data.failureWHope /= samplesize
-    data.successWFear /= samplesize
-    data.failureWFear /= samplesize
+    // aggregate bins?
+
+    for (let n = 0; n < bins; n++) {
+        data.rolls[n] /= samplesize;
+        data.criticals[n] /= samplesize;
+        data.successWHope[n] /= samplesize;
+        data.failureWHope[n] /= samplesize;
+        data.successWFear[n] /= samplesize;
+        data.failureWFear[n] /= samplesize;
+    }
+
+
 
     return data;
 }
+
+console.log(countdownAverage(12, 13, 10000));
+
+/*
 
 // prepare HTML for the dialog
 let dialogContent = `
@@ -140,3 +152,5 @@ let chatMessageContent = `
 `;
 
 ChatMessage.create({ content: chatMessageContent });
+
+*/
