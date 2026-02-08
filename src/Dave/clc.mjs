@@ -40,7 +40,7 @@ class Dice {
     }
 }
 
-function runCombatLength(attack, monsterDifficulty, monsterHitPointsMax, monsterMajorThreshold, monsterSevereThreshold) {
+function runCombatLength(attack, numberOfSides, numberOfDice, damageBonus, monsterDifficulty, monsterHitPointsMax, monsterMajorThreshold, monsterSevereThreshold) {
     let monsterHitPointsCurrent = 0;
     let counter = 0;
 
@@ -48,7 +48,7 @@ function runCombatLength(attack, monsterDifficulty, monsterHitPointsMax, monster
         let hope = Dice.rollDiceTotal([{ numberOfSides: 12, numberOfDice: 1 }]);
         let fear = Dice.rollDiceTotal([{ numberOfSides: 12, numberOfDice: 1 }]);
         if (hope + fear + attack >= monsterDifficulty) {
-            let damage = Dice.rollDiceTotal([{ numberOfSides: 10, numberOfDice: 2 }]) + 3;
+            let damage = Dice.rollDiceTotal([{ numberOfSides: numberOfSides, numberOfDice: numberOfDice }]) + damageBonus;
             if (damage < monsterMajorThreshold) {
                 monsterHitPointsCurrent = monsterHitPointsCurrent + 1;
             }
@@ -61,16 +61,31 @@ function runCombatLength(attack, monsterDifficulty, monsterHitPointsMax, monster
         }
         counter = counter + 1;
     }
-    return {
-        counter: counter
-    };
+    return counter;
 }
 //console.log(runCombatLength(3, 15, 6, 13, 20));
+
+function runCombatLengthAverage(attack, numberOfSides, numberOfDice, damageBonus, monsterDifficulty, monsterHitPointsMax, monsterMajorThreshold, monsterSevereThreshold, samplesize) {
+
+    let total = 0;
+
+    for (let i = 0; i < samplesize; i++) {
+        total += runCombatLength(attack, numberOfSides, numberOfDice, damageBonus, monsterDifficulty, monsterHitPointsMax, monsterMajorThreshold, monsterSevereThreshold);
+    }
+
+    return total /= samplesize;
+}
 
 // prepare HTML for the dialog
 let dialogContent = `
     <label for="attack"> Player's Attack Bonus :</label>
     <input type="number" id="attack" name="attack" />
+    <label for="numberOfSides"> Damage Die Size :</label>
+    <input type="number" id="numberOfSides" name="numberOfSides" />
+    <label for="numberOfDice"> Number of Damage Dice  :</label>
+    <input type="number" id="numberOfDice" name="numberOfDice" />
+    <label for="damageBonus"> Damage Bonus  :</label>
+    <input type="number" id="damageBonus" name="damageBonus" />
     <label for="monsterDifficulty"> Monster's Difficulty :</label>
     <input type="number" id="monsterDifficulty" name="monsterDifficulty" />
     <label for="monsterHitPointsMax"> Monster's Hit Points :</label>
@@ -79,6 +94,8 @@ let dialogContent = `
     <input type="number" id="monsterMajorThreshold" name="monsterMajorThreshold" />
     <label for="monsterSevereThreshold"> Monster's Severe Threshold :</label>
     <input type="number" id="monsterSevereThreshold" name="monsterSevereThreshold" />
+    <label for="samplesize"> Sample Size :</label>
+    <input type="number" id="samplesize" name="samplesize" />
 `;
 
 const response = await foundry.applications.api.DialogV2.wait({
@@ -93,15 +110,25 @@ const response = await foundry.applications.api.DialogV2.wait({
 });
 console.log({ response: response });
 
-let data = runCombatLength(response.attack, response.monsterDifficulty, response.monsterHitPointsMax, response.monsterMajorThreshold, response.monsterSevereThreshold)
-console.log(data)
+if (response.samplesize > 1000000) {
+    ui.notifications.error(`Sample Size must not be greater than a million, was ${response.samplesize}`, { permanent: true });
+    return
+}
+
+if (response.numberOfDice > 10) {
+    ui.notifications.error(`Number of Damage Dice must not be greater than a ten, was ${response.numberOfDice}`, { permanent: true });
+    return
+}
+
+let result = runCombatLengthAverage(response.attack, response.numberOfSides, response.numberOfDice, response.damageBonus, response.monsterDifficulty, response.monsterHitPointsMax, response.monsterMajorThreshold, response.monsterSevereThreshold, response.samplesize)
+console.log(result)
 
 // prepare the HTML for the ChatMessage
 let chatMessageContent = `
     <table>
     <tr>
         <th style="text-align: start;">Rounds</th>
-        <td>${data.counter}</td>
+        <td>${result}</td>
     </tr>
     </table>
 `;

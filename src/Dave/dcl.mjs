@@ -105,7 +105,7 @@ const response = await foundry.applications.api.DialogV2.wait({
 console.log({ response: response });
 
 if (response.samplesize > 1000000) {
-    ui.notifications.error(`Sample size must not be greater than a million, was ${response.samplesize}`, { permanent: true });
+    ui.notifications.error(`Sample Size must not be greater than a million, was ${response.samplesize}`, { permanent: true });
     return
 }
 
