@@ -101,3 +101,5 @@ function printSchnapsDate(date) {
     return { date: date.toUTCString(), schnaps: date.something };
 }
 console.log(printSchnapsDate(new MyDate()));
+
+
