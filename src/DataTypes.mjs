@@ -62,3 +62,42 @@ console.log(`something: ${something}, typeof ${something}: ${typeof something}`)
 printSectionHead();
 something = printSectionHead;
 console.log(`something: ${something}, typeof ${something}: ${typeof something}`);
+
+printSectionHead();
+something = new Date();
+console.log(`something: ${something}, typeof ${something}: ${typeof something}`);
+console.log(something.valueOf());
+console.log(something);
+something.something = 'Blutwurz';
+console.log(Object.getOwnPropertyNames(something));
+console.log(something);
+console.log(something.something);
+console.log(something.valueOf());
+/**
+ * I think it is safe to say that one would be hard pressed to imagine a proper use for mutilating a value this way, but it is obviously possible, given that Data is just a kind of Object, and all objects can be freely cut and glued around with. Rather if we want to extened (or restrict) what built in objects can do, we should use OOP (of the JavaScript kind, which might make some C++ architects wince in pain) in order to get what we want in a more accepted way (note that adhering to common patterns makes it much easier to maintain code, even if it is only ever the author who needs to touch it. For teams it should be obvious.).
+ */
+
+printSectionHead();
+class MyDate extends Date {
+    constructor() {
+        super();
+        this.something = 'Bärwurz';
+    }
+}
+something = new MyDate();
+console.log(Object.getOwnPropertyNames(something));
+console.log(something);
+console.log(something.something);
+console.log(something.valueOf());
+
+/**
+ * This documentation means nothing to the language, but tools like VSCode or TypeScript's documentation compiler can work with it. The Foundry API documentation is generated from those comments via. Type Script's documentation compiler.
+ * 
+ * While this example seems dumb (it is), the method might start to make some sense. We'll expand (a lot) on it when going into OOP with classes.
+ * 
+ * @param {MyDate} date 
+ */
+function printSchnapsDate(date) {
+    return { date: date.toUTCString(), schnaps: date.something };
+}
+console.log(printSchnapsDate(new MyDate()));
