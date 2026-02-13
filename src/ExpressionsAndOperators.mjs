@@ -16,7 +16,7 @@
 
 1.23 // A number literal
 "hello" // A string literal
-let r = /\s+java\s+/ // a regular expression literal
+let r = /\s+java\s+/ // a regular expression literal (that matches all strings containing the sequence of characters 'java')
 
 /**
  * "Object and array initializers are expressions whose value is a newly created object or array. These initializer expressions are sometimes called object literals and array literals. Unlike true literals, however, they are not primary expressions, because they include a number of subexpressions that specify property and element values. Array initializers have a slightly simpler syntax, and we'll begin with those.
