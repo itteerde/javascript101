@@ -27,7 +27,7 @@ if ((!username) || (!password)) {
     throw new Error("--username=<username> and --password=<password> needed");
 }
 
-if (db.get(username)?.password?.localeCompare(createHash('sha256').update(password).digest('hex')) !== 0) { // IRL one should hash in the client (the import would be something from they browser crypto API, and only username and hash ever being sent over the internet, therefore making it safe[ish] even against men in the middle [if they would intercept the account creating they could send their hash instead and later use it. But the user would never be able to lock in, unless the man in the middle would be persistent {like it might be in fishing attacks}])
+if (db.get(username)?.password?.localeCompare(createHash('sha256').update(password).digest('hex')) !== 0) { // IRL one should hash in the client (the import would be something from they browser crypto API, and only username and hash ever being sent over the internet, therefore making it safe[ish] even against men in the middle [if they would intercept the account creating they could send their hash instead and later use it. But the user would never be able to lock in, unless the man in the middle would be persistent {like it might be in fishing attacks}]) https://developer.mozilla.org/de/docs/Web/API/SubtleCrypto/digest#converting_a_digest_to_a_hex_string
     throw new Error(`wrong username or password, ${username}, ${password}`);
 }
 
