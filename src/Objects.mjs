@@ -62,7 +62,7 @@ let r = new Map(); // Creaate a Map object for key/value mapping
  * (David Flanagan, JavaScript The Definitive Guide)
  */
 
-let o1 = Object.create({ x: 1, y: 2 }); // o1 inherits properties x any y.
+let o1 = Object.create({ x: 1, y: 2 }); // o1 inherits properties x and y.
 o1.x + o1.y // => 3
 
 /**

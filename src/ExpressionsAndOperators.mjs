@@ -90,5 +90,5 @@ for (const n of numbers) {
  */
 o = { a: 1, b: 2, c: { x: 3, y: 4 } };
 console.log(o.c.x);
-// console.log(o.b.x.something);
-// console.log(o.b?.x?.something);
+//console.log(o.b.x.something);
+//console.log(o.b?.x?.something);
