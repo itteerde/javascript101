@@ -6,7 +6,7 @@ class GeoLocation {
     /**
      * Constructs a GeoLocation
      * 
-     * @param {String} label 
+     * @param {String} label Label to display, meant to be the name.
      * @param {Number} latitude as for example provided by Google Maps
      * @param {Number} longitude as for example provided by Google Maps
      */
