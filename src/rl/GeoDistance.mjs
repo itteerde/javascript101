@@ -174,10 +174,15 @@ let library = new Map([
     ['Yangon', new GeoLocation('Yangon', 16.8661, 96.1951)],
 ]);
 
-const locationA = library.get('Kassel');
-const locationB = library.get('Toronto');
+let locationA = library.get('Kassel');
+let locationB = library.get('Toronto');
 
 console.log(`The distance between ${locationA.label} and ${locationB.label} is ${calculateDistance(locationA, locationB).toFixed(2)} km. Initial direction (for long distance don't forget to recalculate on the move, you are travelling a curve): ${calculateBearing(locationA, locationB).toFixed(1)}°`);
 
 console.log(`The distance between ${library.get('Toronto').label} and ${library.get('Bejing').label} is ${calculateDistance(library.get('Toronto'), library.get('Bejing')).toFixed(2)} km. Initial direction (for long distance don't forget to recalculate on the move, you are travelling a curve): ${calculateBearing(library.get('Toronto'), library.get('Bejing')).toFixed(1)}°`);
 console.log(`The distance between ${library.get('Bejing').label} and ${library.get('Toronto').label} is ${calculateDistance(library.get('Bejing'), library.get('Toronto')).toFixed(2)} km. Initial direction (for long distance don't forget to recalculate on the move, you are travelling a curve): ${calculateBearing(library.get('Bejing'), library.get('Toronto')).toFixed(1)}°`);
+
+locationA = library.get('Toronto');
+locationB = library.get('Montreal');
+
+console.log(`The distance between ${locationA.label} and ${locationB.label} is ${calculateDistance(locationA, locationB).toFixed(2)} km. Initial direction (for long distance don't forget to recalculate on the move, you are travelling a curve): ${calculateBearing(locationA, locationB).toFixed(1)}°`);
