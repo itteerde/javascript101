@@ -22,7 +22,7 @@ function move(point, angle, unit) {
 }
 
 const randomDirection = Math.random() * 360;
-const randomDistance = Math.random() * range / canvas.scene.grid.distance;
+const randomDistance = Math.random() * 10 / canvas.scene.grid.distance;
 const coordinatesOriginal = [original.x, original.y];
 const coordinatesRandomWalked = move(coordinatesOriginal, randomDirection, randomDistance * canvas.scene.grid.size);
 
