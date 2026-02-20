@@ -6,6 +6,25 @@ import { CheckSolution } from "./CheckSolution.mjs";
  * By considering the terms in the Fibonacci sequence whose values do not exceed four million, find the sum of the even-valued terms.
  */
 
-let solution = undefined; // put the solution (answer) here.
+
+
+
+let fibs = [0, 1];
+let total = 0
+
+for (; ;) {
+    let next = fibs[fibs.length - 1] + fibs[fibs.length - 2]
+    if (next >= 4000000) {
+        break;
+    }
+    fibs.push(next)
+    if (next % 2 === 0) {
+        total = total + next
+    }
+}
+
+//console.log(fibs)
+
+let solution = total; // put the solution (answer) here.
 
 console.log(CheckSolution.check(2, solution));
