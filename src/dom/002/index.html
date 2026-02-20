@@ -1,0 +1,65 @@
+<div class="clock">
+  <div class="hand hour" id="hour-hand"></div>
+  <div class="hand minute" id="min-hand"></div>
+  <div class="hand second" id="sec-hand"></div>
+  <div class="center-dot"></div>
+</div>
+
+<style>
+  .clock {
+    width: 300px;
+    height: 300px;
+    border: 8px solid #333;
+    border-radius: 50%;
+    position: relative;
+    margin: 50px auto;
+  }
+
+  .hand {
+    position: absolute;
+    bottom: 50%;
+    left: 50%;
+    transform-origin: bottom;
+    background: #333;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    transition: transform 0.05s cubic-bezier(0.1, 2.7, 0.58, 1);
+  }
+
+  .hour { width: 6px; height: 25%; margin-left: -3px; }
+  .minute { width: 4px; height: 40%; margin-left: -2px; }
+  .second { width: 2px; height: 45%; margin-left: -1px; background: red; }
+  
+  .center-dot {
+    position: absolute;
+    top: 50%; left: 50%;
+    width: 12px; height: 12px;
+    background: #333;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+  }
+</style>
+
+<script>
+  function setClock() {
+    const now = new Date();
+
+    const seconds = now.getSeconds();
+    const minutes = now.getMinutes();
+    const hours = now.getHours();
+
+    // Calculate rotation in degrees
+    // Each second is 6 degrees (360 / 60)
+    const secDegrees = (seconds / 60) * 360;
+    // Add partial progress to minutes and hours for smooth movement
+    const minDegrees = ((minutes / 60) * 360) + ((seconds / 60) * 6);
+    const hourDegrees = ((hours / 12) * 360) + ((minutes / 60) * 30);
+
+    document.getElementById('sec-hand').style.transform = `rotate(${secDegrees}deg)`;
+    document.getElementById('min-hand').style.transform = `rotate(${minDegrees}deg)`;
+    document.getElementById('hour-hand').style.transform = `rotate(${hourDegrees}deg)`;
+  }
+
+  setInterval(setClock, 1000);
+  setClock(); // Initial call
+</script>
