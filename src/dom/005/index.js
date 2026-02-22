@@ -53,6 +53,42 @@ window.addEventListener('contextmenu', (e) => {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 });
 
+/**
+ * --- Drag and Drop Logic ---
+ */
+
+// 1. Prevent default behavior for dragover (essential for drop to work)
+window.addEventListener('dragover', (e) => {
+    e.preventDefault();
+    e.dataTransfer.dropEffect = 'copy';
+});
+
+// 2. Handle the drop event
+window.addEventListener('drop', (e) => {
+    e.preventDefault();
+
+    const files = e.dataTransfer.files;
+    if (files.length > 0) {
+        const file = files[0];
+
+        // Check if the file is an image
+        if (file.type.startsWith('image/')) {
+            const reader = new FileReader();
+
+            reader.onload = (event) => {
+                const img = new Image();
+                img.onload = () => {
+                    // Draw the image where the mouse was dropped
+                    ctx.drawImage(img, e.clientX - img.width / 2, e.clientY - img.height / 2);
+                };
+                img.src = event.target.result;
+            };
+
+            reader.readAsDataURL(file);
+        }
+    }
+});
+
 // --- Event Listeners ---
 canvas.addEventListener('mousedown', startDrawing);
 canvas.addEventListener('mousemove', draw);
