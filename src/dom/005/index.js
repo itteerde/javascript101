@@ -68,8 +68,7 @@ window.addEventListener('drop', (e) => {
     e.preventDefault();
 
     const files = e.dataTransfer.files;
-    if (files.length > 0) {
-        const file = files[0];
+    for (let file of files) {
 
         // Check if the file is an image
         if (file.type.startsWith('image/')) {
