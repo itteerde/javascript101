@@ -64,7 +64,7 @@ function sunData(location, date, timezone, localized = true) {
 }
 
 /**
- * Remember to adjust for Daylight Saving time (as long as that BS exists).
+ * Remember to adjust for Daylight Saving time (as long as that BS exists). There is no realistic way of automating this, as one would not only need a database of all the countries (and for several countries further distinctions), but also would have to have a precise world map to get from GeoLocation to country, timezone, daylight savings. So just provide the parameter. For a GUI however, one might chose to have two controls, one for the normal timezone offset, one if daylight saving currently needs to modify that (I do think all zones still doing daylight saving are the same one hour the same direction). Date.getTimezoneOffset() gets the offset for a specific Date, should one consider any semi-automation.
  */
 let location = { name: 'Chicago', latitude: 41.893475004631455, longitude: -87.63004717247628, timezoneOffset: -5 };
 
