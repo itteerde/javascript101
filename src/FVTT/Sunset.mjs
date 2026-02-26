@@ -15,7 +15,7 @@ function sunData(location, date, timezone, localized = true) {
 
     const jd = getJD(new Date(date.getFullYear(), date.getMonth(), date.getDate(), 12, 0, 0));
 
-    // Constants for the Sunrise Equation
+    // Constants for the Sunrise Equation, see https://en.wikipedia.org/wiki/Sunrise_equation
     const n = Math.floor(jd - 2451545.0 + 0.0008);
     const jStar = n - lng / 360;
     const M = (357.5291 + 0.98560028 * jStar) % 360;
