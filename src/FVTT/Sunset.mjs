@@ -56,11 +56,20 @@ function sunData(location, date, timezone, localized = true) {
         return dateObj.toUTCString();
     };
 
+    /*
     return {
         sunrise: formatTime(sunrise),
         sunset: formatTime(sunset),
         durationDaylight
     };
+    */
+
+    return {
+        sunrise: sunrise,
+        sunset: sunset,
+        durationDaylight
+    };
+
 }
 
 /**
@@ -68,4 +77,4 @@ function sunData(location, date, timezone, localized = true) {
  */
 let location = { name: 'Chicago', latitude: 41.893475004631455, longitude: -87.63004717247628, timezoneOffset: -5 };
 
-console.log(sunData(location, new Date("2026-02-25"), location.timezoneOffset, true));
+console.log(sunData(location, new Date("2026-02-25"), location.timezoneOffset, false));
