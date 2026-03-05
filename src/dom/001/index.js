@@ -2,6 +2,7 @@ const clockDisplay = document.createElement('div');
 clockDisplay.id = 'clock';
 clockDisplay.style.fontFamily = 'sans-serif';
 clockDisplay.style.fontSize = '48px';
+clockDisplay.style.fontWeight = 'bold';
 clockDisplay.style.color = '#cc0000';
 clockDisplay.style.padding = '20px';
 document.body.appendChild(clockDisplay);
