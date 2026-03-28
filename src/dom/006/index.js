@@ -28,6 +28,7 @@ target.addEventListener("drop", (e) => {
         const file = dt.files[0];
 
         if (file.type.startsWith("image/")) {
+            console.log('taking file.type path');
             const reader = new FileReader();
             reader.onload = (event) => {
                 target.style.backgroundImage = `url('${event.target.result}')`;
@@ -43,7 +44,6 @@ target.addEventListener("drop", (e) => {
     const imageUrl = dt.getData("text/uri-list");
     if (imageUrl !== document.URL) {
         console.log('taking imageUrl path');
-        console.log({ imageUrl: imageUrl });
         target.style.backgroundImage = `url('${imageUrl}')`;
         target.style.backgroundSize = "cover";
         target.style.backgroundPosition = "center";
@@ -53,6 +53,7 @@ target.addEventListener("drop", (e) => {
     // 3. Handle Plain Text (fallback)
     const data = dt.getData("text/plain");
     if (data) {
+        console.log('taking text/plain path');
         target.innerHTML += data;
     }
 });
