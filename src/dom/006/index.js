@@ -21,6 +21,6 @@ target.addEventListener("dragover", (e) => {
 target.addEventListener("drop", (e) => {
     e.preventDefault();
     const data = e.dataTransfer.getData("text/plain");
-    console.log({ target: target, event: e, data: data });
+    //console.log({ target: target, event: e, data: data });
     target.innerHTML += data;
 });
