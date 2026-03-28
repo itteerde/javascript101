@@ -30,6 +30,7 @@ class CheckSolution {
         [3, '5c09f0554518a413e58e6bc5964ba90655713483d0b2bbc94572ad6b0b4dda28'],
         [4, 'aa74f52b4c428d89606b411bc165eb81a6266821ecc9b4f30cdb70c5c930f4d9'],
         [5, '1ba90ab11bfb2d2400545337212b0de2a5c7f399215175ade6396e91388912b1'],
+        [6, '537942be3eb323c507623a6a73fa87bf5aeb97b7c7422993a82aa7c15f6d9cd6'],
         [8, 'b9fb30b6553415e9150051ce5710a93d0f55b22557c0068d8e16619a388f145a'],
         [13, '3cb265a96c5645a9ad11d47551f015c25f3f99792c951617656d84626fbc4868'],
         [14, '78a262dd40eba0f7195686ec7f3891a39437523456f8d16fa9065a34409eeac6'],
@@ -65,6 +66,6 @@ class CheckSolution {
             solutionString = JSON.stringify(claimedResult, replacer);
         }
         let hash = createHash('sha256').update(solutionString).digest('hex');
-        return { excerciseNo: excerciseNo, correct: this.solution_hashes.get(excerciseNo) === hash, hash: hash };
+        return { excerciseNo: excerciseNo, solution: claimedResult, correct: this.solution_hashes.get(excerciseNo) === hash, hash: hash };
     }
 }
