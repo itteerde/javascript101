@@ -11,6 +11,7 @@ document.querySelector('div').addEventListener("contextmenu", (event) => {
 
 document.querySelector('div').addEventListener("mouseup", (event) => {
     event.target.style.color = `rgb(${Math.round(Math.random() * 255)},${Math.round(Math.random() * 255)},${Math.round(Math.random() * 255)})`;
+    console.log({ fontSize: event.target.style.fontSize })
     if (event.button === 2) {
         event.target.style.fontSize = `${Math.round(Number.parseInt(event.target.style.fontSize.slice(0, event.target.style.fontSize.length - 2)) / 1.2)}px`;
     } else {

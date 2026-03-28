@@ -6,7 +6,27 @@ import { CheckSolution } from "./CheckSolution.mjs";
  * 
  * Find the largest palindrome made from the product of two 3-digit numbers.
  */
+let firstNumber = 100
+let secondNumber = 100
+let testPalindrome = firstNumber * secondNumber
+
+function isPalindrome(testPalindrome) {
+    const s = testPalindrome.toString()
+    for (let offset = 0; offset < s.length / 2; offset++) {
+        if () {
+
+        }
+    }
+    return true
+}
 
 let solution = undefined; // put the solution (answer) here.
 
 console.log(CheckSolution.check(4, solution));
+
+/*        if (testPalindrome.toString().charAt(0) === testPalindrome.toString().charAt(testPalindrome.toString().length - 1)) {
+        }
+*/
+
+
+
