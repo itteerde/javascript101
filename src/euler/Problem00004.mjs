@@ -14,7 +14,7 @@ function isPalindrome(testPalindrome) {
     const s = testPalindrome.toString()
     for (let offset = 0; offset < s.length / 2; offset++) {
         if () {
-
+            //toDo create code that compares the .charAt of the first and last digit, then the inner digit, and so on and so forth until the loop completes, finally setting testPalindrome to true if the charAt's are the same throughout the entire number.
         }
     }
     return true
