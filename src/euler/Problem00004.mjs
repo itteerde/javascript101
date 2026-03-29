@@ -8,7 +8,6 @@ import { CheckSolution } from "./CheckSolution.mjs";
  */
 let firstNumber = 100
 let secondNumber = 100
-let testPalindrome = firstNumber * secondNumber
 
 function isPalindrome(testPalindrome) {
     const s = testPalindrome.toString()
@@ -20,7 +19,18 @@ function isPalindrome(testPalindrome) {
     return true
 }
 
-let solution = undefined; // put the solution (answer) here.
+let largest = 0
+
+for (let a = 100; a < 1000; a++) {
+    for (let b = 100; b < 1000; b++) {
+        if (isPalindrome(a * b) && (a * b) > largest) {
+            largest = a * b
+        }
+    }
+}
+
+
+let solution = largest; // put the solution (answer) here.
 
 console.log(CheckSolution.check(4, solution));
 
