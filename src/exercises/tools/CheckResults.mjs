@@ -57,7 +57,7 @@ class CheckResults {
             solutionString = JSON.stringify(claimedResult, replacer);
         }
         let hash = createHash('sha256').update(solutionString).digest('hex');
-        return { excerciseNo: excerciseNo, correct: this.solution_hashes.get(excerciseNo) === hash, hash: hash };
+        return { excerciseNo: excerciseNo, solution: claimedResult, correct: this.solution_hashes.get(excerciseNo) === hash, hash: hash };
     }
 }
 
