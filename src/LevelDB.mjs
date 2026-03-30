@@ -4,7 +4,8 @@ const db = new Level('./data/armors', { valueEncoding: 'json' });
 
 async function browseDatabase() {
     for await (const [key, value] of db.iterator()) {
-        console.log({ key: key, value: value });
+        //console.log({ key: key, value: value });
+        console.log({ key: key, name: value.name });
     }
 }
 
