@@ -16,7 +16,7 @@ for (let n = 1; n <= 100; n++) {
     sumTwo = sumTwo + Math.pow(n, 2);
 }
 
-answer = Math.pow(sumOne, 2) - sumTwo;
+let answer = Math.pow(sumOne, 2) - sumTwo;
 
 let solution = answer; // put the solution (answer) here.
 
