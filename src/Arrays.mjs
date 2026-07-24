@@ -23,6 +23,9 @@ for (const e of a1) {
     histogram[e - 1]++;
 }
 
+a1.forEach((e) => {
+
+})
 
 let histogram2 = new Array(24);
 for (let i = 0; i < histogram2.length; i++) {

@@ -64,3 +64,7 @@ class DH {
         return this.c_Duality(eDV) / 144;
     }
 }
+
+for (let dv = 3; dv < 25; dv++) {
+    console.log(`eDV: ${dv.toString().padStart(2)} => pSuccess: ${DH.p_Duality(dv).toFixed(3).padStart(5)}`);
+}
