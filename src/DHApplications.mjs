@@ -21,7 +21,27 @@ for (let i = 0; i < samplesize; i++) {
 
     if (hope + fear >= eDV) {
         sum += 1;
+        continue;
     }
+
+    hope = Dice.getRandomIntInclusive(1, 12);
+    fear = Dice.getRandomIntInclusive(1, 12);
+
+    if (DH.is_critical(hope, fear)) {
+        sum += 3;
+        continue;
+    }
+
+    if (hope > fear && hope + fear >= eDV) {
+        sum += 2;
+        continue;
+    }
+
+    if (hope + fear >= eDV) {
+        sum += 1;
+        continue;
+    }
+
 }
 
 console.log(sum / samplesize);
